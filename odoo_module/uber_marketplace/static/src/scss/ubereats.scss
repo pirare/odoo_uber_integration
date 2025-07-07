@@ -1,0 +1,29 @@
+.o_ubereats_status_toggle {
+    display: inline-block;
+
+    &.o_ubereats_active .btn {
+        background-color: #28a745;
+        color: white;
+
+        &:hover {
+            background-color: #218838;
+        }
+    }
+
+    &.o_ubereats_paused .btn {
+        background-color: #ffc107;
+        color: #212529;
+
+        &:hover {
+            background-color: #e0a800;
+        }
+    }
+}
+
+.o_ubereats_config_form {
+    .o_ubereats_credentials {
+        .o_field_widget {
+            font-family: monospace;
+        }
+    }
+}

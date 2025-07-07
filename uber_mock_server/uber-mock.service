@@ -1,0 +1,17 @@
+[Unit]
+Description=Uber Eats Mock API Server
+After=network.target
+After=postgresql.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/uber-mock
+Environment=PATH=/var/www/uber-mock/venv/bin
+ExecStart=/var/www/uber-mock/venv/bin/gunicorn main:app -c gunicorn_config.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

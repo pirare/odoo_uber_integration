@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="UberEatsStoreStatusToggle">
+        <div class="o_ubereats_status_toggle">
+            <button class="btn btn-sm">
+                <i class="fa fa-pause" t-if="widget.record.data[widget.fieldName]"/>
+                <i class="fa fa-play" t-if="!widget.record.data[widget.fieldName]"/>
+                <span class="o_ubereats_status_text"></span>
+            </button>
+        </div>
+    </t>
+</templates>

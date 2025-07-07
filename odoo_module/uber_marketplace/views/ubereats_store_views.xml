@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_ubereats_store_form" model="ir.ui.view">
+        <field name="name">ubereats.store.form</field>
+        <field name="model">ubereats.store</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="activate_integration" type="object" string="Activate Integration"
+                            class="btn-primary" attrs="{'invisible': [('is_active', '=', True)]}"/>
+                    <field name="is_active" widget="boolean_toggle" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Store Information">
+                            <field name="store_id" readonly="1"/>
+                            <field name="external_store_id"/>
+                            <field name="pos_config_id"/>
+                            <field name="config_id" readonly="1"/>
+                        </group>
+                        <group string="Integration Settings">
+                            <field name="integrator_store_id"/>
+                            <field name="merchant_store_id"/>
+                            <field name="is_order_manager"/>
+                            <field name="integration_enabled" readonly="1"/>
+                            <field name="require_manual_acceptance"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Customer Request Settings" name="customer_settings">
+                            <group>
+                                <field name="allow_special_instructions"/>
+                                <field name="allow_single_use_items"/>
+                            </group>
+                        </page>
+                        <page string="Webhook Configuration" name="webhooks">
+                            <group>
+                                <field name="enable_order_release_webhooks"/>
+                                <field name="enable_schedule_order_webhooks"/>
+                                <field name="enable_delivery_status_webhooks"/>
+                                <field name="webhooks_version"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,14 @@
+bind = "127.0.0.1:8001"
+workers = 2
+worker_class = "uvicorn.workers.UvicornWorker"
+timeout = 300
+keepalive = 2
+max_requests = 1000
+max_requests_jitter = 100
+preload_app = True
+user = "www-data"
+group = "www-data"
+tmp_upload_dir = None
+worker_tmp_dir = "/dev/shm"
+worker_connections = 1000
+max_worker_memory = 100

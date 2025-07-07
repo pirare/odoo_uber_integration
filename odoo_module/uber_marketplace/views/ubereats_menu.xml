@@ -1,0 +1,21 @@
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_ubereats_root"
+              name="Uber Eats"
+              parent="point_of_sale.menu_point_root"
+              sequence="50"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_ubereats_config"
+              name="Configurations"
+              parent="menu_ubereats_root"
+              action="action_ubereats_config"
+              sequence="10"/>
+
+    <!-- Stores Menu -->
+    <menuitem id="menu_ubereats_stores"
+              name="Stores"
+              parent="menu_ubereats_root"
+              action="action_ubereats_stores"
+              sequence="20"/>
+</odoo>

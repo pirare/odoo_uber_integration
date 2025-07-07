@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="oauth_success" name="OAuth Success">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="card">
+                            <div class="card-header bg-success text-white">
+                                <h4>Authorization Successful</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>Your Uber Eats account has been successfully authorized.</p>
+                                <p>Please copy the authorization code below and paste it in the Odoo wizard:</p>
+                                <div class="form-group">
+                                    <label>Authorization Code:</label>
+                                    <input type="text" class="form-control"
+                                           value="<t t-esc='code'/>" readonly="readonly"
+                                           onclick="this.select();"/>
+                                </div>
+                                <p class="text-muted">You can close this window after copying the code.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="oauth_error" name="OAuth Error">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="card">
+                            <div class="card-header bg-danger text-white">
+                                <h4>Authorization Failed</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>An error occurred during authorization:</p>
+                                <div class="alert alert-danger">
+                                    <strong>Error:</strong> <t t-esc="error"/><br/>
+                                    <strong>Description:</strong> <t t-esc="error_description"/>
+                                </div>
+                                <p>Please close this window and try again.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

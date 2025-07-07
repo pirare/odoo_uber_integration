@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ubereats_config_rule_company" model="ir.rule">
+        <field name="name">Uber Eats Config: multi-company</field>
+        <field name="model_id" ref="model_ubereats_config"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

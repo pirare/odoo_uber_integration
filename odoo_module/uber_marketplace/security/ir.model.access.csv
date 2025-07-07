@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ubereats_config_user,ubereats.config.user,model_ubereats_config,point_of_sale.group_pos_user,1,0,0,0
+access_ubereats_config_manager,ubereats.config.manager,model_ubereats_config,point_of_sale.group_pos_manager,1,1,1,1
+access_ubereats_token_user,ubereats.token.user,model_ubereats_token,point_of_sale.group_pos_user,1,0,0,0
+access_ubereats_token_manager,ubereats.token.manager,model_ubereats_token,point_of_sale.group_pos_manager,1,1,1,1
+access_ubereats_store_user,ubereats.store.user,model_ubereats_store,point_of_sale.group_pos_user,1,0,0,0
+access_ubereats_store_manager,ubereats.store.manager,model_ubereats_store,point_of_sale.group_pos_manager,1,1,1,1
+access_ubereats_auth_wizard,ubereats.auth.wizard,model_ubereats_auth_wizard,point_of_sale.group_pos_user,1,1,1,1

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_config_view_form_inherit_ubereats" model="ir.ui.view">
+        <field name="name">pos.config.form.inherit.ubereats</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='technical']" position="after">
+                <page string="Uber Eats" name="ubereats">
+                    <group>
+                        <group string="Uber Eats Integration">
+                            <field name="ubereats_enabled"/>
+                            <field name="ubereats_store_id"
+                                   attrs="{'invisible': [('ubereats_enabled', '=', False)],
+                                          'required': [('ubereats_enabled', '=', True)]}"/>
+                            <field name="ubereats_config_id" readonly="1"
+                                   attrs="{'invisible': [('ubereats_enabled', '=', False)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

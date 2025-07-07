@@ -1,6 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-from ubereats_api import UberEatsAPI
+from .ubereats_api import UberEatsAPI
 import requests
 import logging
 

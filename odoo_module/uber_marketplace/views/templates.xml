@@ -14,16 +14,52 @@
                                 <p>Please copy the authorization code below and paste it in the Odoo wizard:</p>
                                 <div class="form-group">
                                     <label>Authorization Code:</label>
-                                    <input type="text" class="form-control"
-                                           value="<t t-esc='code'/>" readonly="readonly"
-                                           onclick="this.select();"/>
+                                    <input type="text" class="form-control" readonly="readonly"
+                                           t-att-value="code"
+                                           onfocus="this.select()"/>
                                 </div>
-                                <p class="text-muted">You can close this window after copying the code.</p>
+                                <div class="mt-2">
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                            onclick="copyToClipboard()">
+                                        Copy Code
+                                    </button>
+                                </div>
+                                <p class="text-muted mt-3">You can close this window after copying the code.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <script>
+                function copyToClipboard() {
+                    var codeInput = document.querySelector('input[readonly]');
+                    codeInput.select();
+                    codeInput.setSelectionRange(0, 99999); // For mobile devices
+                    navigator.clipboard.writeText(codeInput.value).then(function() {
+                        // Show success message
+                        var btn = document.querySelector('button');
+                        var originalText = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        btn.className = 'btn btn-success btn-sm';
+                        setTimeout(function() {
+                            btn.textContent = originalText;
+                            btn.className = 'btn btn-primary btn-sm';
+                        }, 2000);
+                    }).catch(function() {
+                        // Fallback for older browsers
+                        document.execCommand('copy');
+                        var btn = document.querySelector('button');
+                        var originalText = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        btn.className = 'btn btn-success btn-sm';
+                        setTimeout(function() {
+                            btn.textContent = originalText;
+                            btn.className = 'btn btn-primary btn-sm';
+                        }, 2000);
+                    });
+                }
+            </script>
         </t>
     </template>
 

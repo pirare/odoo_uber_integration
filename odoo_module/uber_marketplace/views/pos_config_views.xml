@@ -6,18 +6,16 @@
         <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@id='payment_methods_new']" position="before">
-                <page string="Uber Eats" name="ubereats">
-                    <group>
-                        <group string="Uber Eats Integration">
-                            <field name="ubereats_enabled"/>
-                            <field name="ubereats_store_id"
-                                   attrs="{'invisible': [('ubereats_enabled', '=', False)],
-                                          'required': [('ubereats_enabled', '=', True)]}"/>
-                            <field name="ubereats_config_id" readonly="1"
-                                   attrs="{'invisible': [('ubereats_enabled', '=', False)]}"/>
-                        </group>
+                <group>
+                    <group string="Uber Eats Integration">
+                        <field name="ubereats_enabled"/>
+                        <field name="ubereats_store_id"
+                               attrs="{'invisible': [('ubereats_enabled', '=', False)],
+                                      'required': [('ubereats_enabled', '=', True)]}"/>
+                        <field name="ubereats_config_id" readonly="1"
+                               attrs="{'invisible': [('ubereats_enabled', '=', False)]}"/>
                     </group>
-                </page>
+                </group>
             </xpath>
         </field>
     </record>

@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Tree View -->
+    <record id="view_ubereats_store_tree" model="ir.ui.view">
+        <field name="name">ubereats.store.tree</field>
+        <field name="model">ubereats.store</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="store_id"/>
+                <field name="external_store_id"/>
+                <field name="pos_config_id"/>
+                <field name="is_active"/>
+                <field name="integration_enabled"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_ubereats_store_search" model="ir.ui.view">
+        <field name="name">ubereats.store.search</field>
+        <field name="model">ubereats.store</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="store_id"/>
+                <field name="external_store_id"/>
+                <field name="pos_config_id"/>
+                <separator/>
+                <filter name="active_stores" string="Active Stores" domain="[('is_active', '=', True)]"/>
+                <filter name="inactive_stores" string="Inactive Stores" domain="[('is_active', '=', False)]"/>
+                <filter name="integration_enabled" string="Integration Enabled" domain="[('integration_enabled', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_pos_config" string="POS Configuration" domain="[]" context="{'group_by': 'pos_config_id'}"/>
+                    <filter name="group_by_active" string="Active Status" domain="[]" context="{'group_by': 'is_active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <!-- Form View -->
     <record id="view_ubereats_store_form" model="ir.ui.view">
         <field name="name">ubereats.store.form</field>
@@ -53,7 +91,9 @@
             </form>
         </field>
     </record>
-        <record id="action_ubereats_stores" model="ir.actions.act_window">
+
+    <!-- Action -->
+    <record id="action_ubereats_stores" model="ir.actions.act_window">
         <field name="name">Uber Eats Stores</field>
         <field name="res_model">ubereats.store</field>
         <field name="view_mode">tree,form</field>

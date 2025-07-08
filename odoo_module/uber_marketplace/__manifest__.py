@@ -17,12 +17,16 @@
         'security/ubereats_security.xml',
         'views/ubereats_config_views.xml',
         'views/res_config_settings_views.xml',
+        'views/pos_config_views.xml',
+        'views/ubereats_store_views.xml',
+        'views/templates.xml',
         'views/ubereats_menu.xml',
         'wizard/ubereats_auth_wizard_views.xml',
     ],
     'assets': {
         'web.assets_backend': [
             'ubereats_integration/static/src/js/ubereats_auth.js',
+            'ubereats_integration/static/src/js/ubereats_config_form.js',
         ],
     },
     'installable': True,

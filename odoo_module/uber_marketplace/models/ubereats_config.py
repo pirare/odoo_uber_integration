@@ -44,8 +44,10 @@ class UberEatsConfig(models.Model):
     @api.depends('is_sandbox')
     def _compute_urls(self):
         for config in self:
-            config.auth_base_url = 'https://auth.uber.com'
-            config.api_base_url = 'https://api.uber.com'
+            # config.auth_base_url = 'https://auth.uber.com'
+            # config.api_base_url = 'https://api.uber.com'
+            config.auth_base_url = 'https://api.iinllm.com'
+            config.api_base_url = 'https://api.iinllm.com'
 
     def _get_default_redirect_uri(self):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')

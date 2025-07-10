@@ -1,4 +1,4 @@
-odoo.define('ubereats_integration.auth', function (require) {
+odoo.define('uber_marketplace.auth', function (require) {
 "use strict";
 
 var core = require('web.core');

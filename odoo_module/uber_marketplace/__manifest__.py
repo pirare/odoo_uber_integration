@@ -25,8 +25,8 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'ubereats_integration/static/src/js/ubereats_auth.js',
-            'ubereats_integration/static/src/js/ubereats_config_form.js',
+            'uber_marketplace/static/src/js/ubereats_auth.js',
+            'uber_marketplace/static/src/js/ubereats_config_form.js',
         ],
     },
     'installable': True,

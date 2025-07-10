@@ -20,20 +20,20 @@ class UberEatsController(http.Controller):
         if error:
             # Handle error
             error_description = kwargs.get('error_description', 'Unknown error')
-            return request.render('ubereats_integration.oauth_error', {
+            return request.render('uber_marketplace.oauth_error', {
                 'error': error,
                 'error_description': error_description
             })
 
         if not code:
-            return request.render('ubereats_integration.oauth_error', {
+            return request.render('uber_marketplace.oauth_error', {
                 'error': 'missing_code',
                 'error_description': 'Authorization code is missing'
             })
 
         # Find the wizard by state (you should implement state storage)
         # For now, we'll redirect to a manual input form
-        return request.render('ubereats_integration.oauth_success', {
+        return request.render('uber_marketplace.oauth_success', {
             'code': code,
             'state': state
         })

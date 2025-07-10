@@ -1,4 +1,4 @@
-odoo.define('ubereats_integration.config_form', function (require) {
+odoo.define('uber_marketplace.config_form', function (require) {
 "use strict";
 
 var FormController = require('web.FormController');
@@ -63,7 +63,7 @@ return UberEatsConfigFormController;
 });
 
 // static/src/js/ubereats_store_status.js
-odoo.define('ubereats_integration.store_status', function (require) {
+odoo.define('uber_marketplace.store_status', function (require) {
 "use strict";
 
 var Widget = require('web.Widget');

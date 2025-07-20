@@ -10,6 +10,7 @@
                     <p class="text-muted">
                         Click the button below to authorize your Uber Eats account.
                         You will be redirected to Uber's authorization page.
+                        After completing authorization, click "I've Authorized - Enter Code" to proceed.
                     </p>
                     <field name="config_id" invisible="1"/>
                     <field name="auth_url" invisible="1"/>
@@ -23,6 +24,8 @@
                 </group>
                 <footer>
                     <button name="action_open_auth_url" type="object" string="Open Authorization Page"
+                            class="btn-secondary" attrs="{'invisible': [('step', '!=', 'authorize')]}"/>
+                    <button name="action_proceed_to_callback" type="object" string="I've Authorized - Enter Code"
                             class="btn-primary" attrs="{'invisible': [('step', '!=', 'authorize')]}"/>
                     <button name="action_process_callback" type="object" string="Process Authorization"
                             class="btn-primary" attrs="{'invisible': [('step', '!=', 'callback')]}"/>

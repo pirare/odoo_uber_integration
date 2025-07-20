@@ -17,6 +17,45 @@ import uuid
 import os
 import urllib.parse
 from contextlib import contextmanager
+from logging.handlers import RotatingFileHandler
+import logging
+import sys
+
+
+def setup_logging():
+    """Configure logging for the application"""
+
+    # Create logs directory
+    import os
+    os.makedirs("logs", exist_ok=True)
+
+    # Create formatter
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+
+    # Console handler
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(formatter)
+
+    # File handler with rotation
+    file_handler = RotatingFileHandler(
+        'logs/app.log',
+        maxBytes=10 * 1024 * 1024,  # 10MB
+        backupCount=5
+    )
+    file_handler.setFormatter(formatter)
+
+    # Configure root logger
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)
+
+    return logger
+
+logger = setup_logging()
+
 
 # Initialize FastAPI app
 app = FastAPI(title="Uber Eats Mock Server", version="2.0.0")
@@ -26,6 +65,24 @@ security = HTTPBearer()
 DB_FILE = os.environ.get("UBER_MOCK_DB", "uber_mock.db")
 WEBHOOK_SECRET = os.environ.get("WEBHOOK_SECRET", "demo_webhook_secret")
 BASE_URL = os.environ.get("BASE_URL", "http://localhost:8000")
+
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    """Log all requests"""
+    start_time = time.time()
+
+    # Log request
+    logger.info(f"Request: {request.method} {request.url}")
+
+    # Process request
+    response = await call_next(request)
+
+    # Log response
+    process_time = time.time() - start_time
+    logger.info(f"Response: {response.status_code} - {process_time:.3f}s")
+
+    return response
 
 
 # Database connection manager

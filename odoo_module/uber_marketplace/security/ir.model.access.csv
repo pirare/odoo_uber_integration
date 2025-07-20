@@ -6,3 +6,7 @@ access_ubereats_token_manager,ubereats.token.manager,model_ubereats_token,point_
 access_ubereats_store_user,ubereats.store.user,model_ubereats_store,point_of_sale.group_pos_user,1,0,0,0
 access_ubereats_store_manager,ubereats.store.manager,model_ubereats_store,point_of_sale.group_pos_manager,1,1,1,1
 access_ubereats_auth_wizard,ubereats.auth.wizard,model_ubereats_auth_wizard,point_of_sale.group_pos_user,1,1,1,1
+access_ubereats_store_discovery_wizard_user,ubereats.store.discovery.wizard.user,model_ubereats_store_discovery_wizard,point_of_sale.group_pos_user,1,1,1,1
+access_ubereats_store_discovery_wizard_manager,ubereats.store.discovery.wizard.manager,model_ubereats_store_discovery_wizard,point_of_sale.group_pos_manager,1,1,1,1
+access_ubereats_store_discovery_line_user,ubereats.store.discovery.line.user,model_ubereats_store_discovery_line,point_of_sale.group_pos_user,1,1,1,1
+access_ubereats_store_discovery_line_manager,ubereats.store.discovery.line.manager,model_ubereats_store_discovery_line,point_of_sale.group_pos_manager,1,1,1,1

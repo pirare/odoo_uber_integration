@@ -1,5 +1,8 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class UberEatsStoreDiscoveryWizard(models.TransientModel):
@@ -12,40 +15,55 @@ class UberEatsStoreDiscoveryWizard(models.TransientModel):
     discovered_store_ids = fields.One2many('ubereats.store.discovery.line', 'wizard_id',
                                            string='Discovered Stores')
 
-    @api.onchange('config_id', 'auth_token_id')
-    def _onchange_discover_stores(self):
-        """Discover stores when wizard opens"""
-        if self.config_id and self.auth_token_id:
-            self._discover_stores()
+    state = fields.Selection([
+        ('init', 'Initialize'),
+        ('discovered', 'Stores Discovered')
+    ], default='init')
 
-    def _discover_stores(self):
+    def action_discover_stores(self):
         """Discover stores from Uber Eats API"""
-        from ..models.ubereats_api import UberEatsAPI
+        self.ensure_one()
 
-        api = UberEatsAPI(self.config_id)
-        stores_data = api.get_stores(self.auth_token_id.access_token)
+        try:
+            from ..models.ubereats_api import UberEatsAPI
 
-        # Clear existing lines
-        self.discovered_store_ids = [(5, 0, 0)]
+            api = UberEatsAPI(self.config_id)
+            stores_data = api.get_stores(self.auth_token_id.access_token)
 
-        # Create new lines
-        lines = []
-        for store_data in stores_data.get('stores', []):
-            # Check if store already exists
-            existing = self.env['ubereats.store'].search([
-                ('store_id', '=', store_data['store_id']),
-                ('config_id', '=', self.config_id.id)
-            ])
+            # Clear existing lines
+            self.discovered_store_ids = [(5, 0, 0)]
 
-            lines.append((0, 0, {
-                'store_id': store_data['store_id'],
-                'name': store_data.get('name', ''),
-                'external_store_id': store_data.get('external_store_id', ''),
-                'is_existing': bool(existing),
-                'existing_store_id': existing.id if existing else False,
-            }))
+            # Create new lines
+            lines = []
+            for store_data in stores_data.get('stores', []):
+                # Check if store already exists
+                existing = self.env['ubereats.store'].search([
+                    ('store_id', '=', store_data['store_id']),
+                    ('config_id', '=', self.config_id.id)
+                ])
 
-        self.discovered_store_ids = lines
+                lines.append((0, 0, {
+                    'store_id': store_data['store_id'],
+                    'name': store_data.get('name', ''),
+                    'external_store_id': store_data.get('external_store_id', ''),
+                    'is_existing': bool(existing),
+                    'existing_store_id': existing.id if existing else False,
+                }))
+
+            self.discovered_store_ids = lines
+            self.state = 'discovered'
+
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'ubereats.store.discovery.wizard',
+                'res_id': self.id,
+                'view_mode': 'form',
+                'target': 'new',
+            }
+
+        except Exception as e:
+            _logger.error(f"Failed to discover stores: {str(e)}")
+            raise UserError(_("Failed to discover stores: %s") % str(e))
 
     def action_import_selected(self):
         """Import selected stores"""
@@ -87,7 +105,7 @@ class UberEatsStoreDiscoveryLine(models.TransientModel):
     _name = 'ubereats.store.discovery.line'
     _description = 'Uber Eats Store Discovery Line'
 
-    wizard_id = fields.Many2one('ubereats.store.discovery.wizard', required=True)
+    wizard_id = fields.Many2one('ubereats.store.discovery.wizard', required=True, ondelete='cascade')
 
     # Store data
     store_id = fields.Char('Uber Eats Store ID', required=True)

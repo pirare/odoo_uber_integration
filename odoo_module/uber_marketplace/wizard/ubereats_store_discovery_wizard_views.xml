@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ubereats_store_discovery_wizard_form" model="ir.ui.view">
+        <field name="name">ubereats.store.discovery.wizard.form</field>
+        <field name="model">ubereats.store.discovery.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="state" invisible="1"/>
+                <field name="config_id" invisible="1"/>
+                <field name="auth_token_id" invisible="1"/>
+
+                <group attrs="{'invisible': [('state', '!=', 'init')]}">
+                    <p class="text-muted">
+                        Click "Discover Stores" to fetch your stores from Uber Eats.
+                    </p>
+                </group>
+
+                <group attrs="{'invisible': [('state', '!=', 'discovered')]}">
+                    <p class="text-muted">
+                        Select the stores you want to import and configure their settings:
+                    </p>
+                    <field name="discovered_store_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="is_selected"/>
+                            <field name="store_id"/>
+                            <field name="name"/>
+                            <field name="external_store_id"/>
+                            <field name="is_existing"/>
+                            <field name="existing_store_id" attrs="{'invisible': [('is_existing', '=', False)]}"/>
+                            <field name="pos_config_id" attrs="{'invisible': [('is_existing', '=', True)]}"/>
+                            <field name="auto_activate" attrs="{'invisible': [('is_existing', '=', True)]}"/>
+                        </tree>
+                    </field>
+                </group>
+
+                <footer>
+                    <button name="action_discover_stores" type="object" string="Discover Stores"
+                            class="btn-primary" attrs="{'invisible': [('state', '!=', 'init')]}"/>
+                    <button name="action_import_selected" type="object" string="Import Selected Stores"
+                            class="btn-primary" attrs="{'invisible': [('state', '!=', 'discovered')]}"/>
+                    <button name="action_discover_stores" type="object" string="Refresh Stores"
+                            class="btn-secondary" attrs="{'invisible': [('state', '!=', 'discovered')]}"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

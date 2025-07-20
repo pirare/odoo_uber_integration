@@ -22,6 +22,7 @@
         'views/templates.xml',
         'views/ubereats_menu.xml',
         'wizard/ubereats_auth_wizard_views.xml',
+        'wizard/ubereats_store_discovery_wizard_views.xml',
     ],
     'assets': {
         'web.assets_backend': [

@@ -43,6 +43,7 @@ class UberEatsStore(models.Model):
 
     # Status
     is_active = fields.Boolean('Active', default=False)
+    is_paused = fields.Boolean('Paused', default=False)
     last_sync_date = fields.Datetime('Last Sync Date')
 
     def activate_integration(self, user_token):
@@ -91,7 +92,6 @@ class UberEatsStore(models.Model):
             _logger.error(f"Failed to activate integration: {str(e)}")
             raise UserError(_(f"Failed to activate integration: {str(e)}"))
 
-
     def toggle_status(self):
         """Toggle store pause status"""
         self.ensure_one()
@@ -111,10 +111,24 @@ class UberEatsStore(models.Model):
             # Update local status
             self.is_paused = new_status
 
-            return {'success': True}
+            # Return refresh action
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'reload',
+            }
 
         except Exception as e:
-            return {'success': False, 'error': str(e)}
+            # Return error notification
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': 'Error',
+                    'message': str(e),
+                    'type': 'danger',
+                    'sticky': False,
+                }
+            }
 
 
     @api.model
